@@ -10,6 +10,7 @@ type SearchResults = {
 
 function App() {
     const [searchResults, setSearchResults] = useState<SearchResults>();
+    const [nominations, setNominations] = useState<Movie[]>([]);
 
     return (
         <div className="App">
@@ -30,6 +31,17 @@ function App() {
                 <h1>Results for {searchResults?.title}</h1>
                 <ul>
                     {searchResults?.movies.map((movie) => (
+                        <li key={movie.imdbID}>
+                            {movie.Title} ({movie.Year})
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="Nominations">
+                <h1>Nominations</h1>
+                <ul>
+                    {nominations.map((movie) => (
                         <li key={movie.imdbID}>
                             {movie.Title} ({movie.Year})
                         </li>
