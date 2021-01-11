@@ -13,6 +13,10 @@ export async function searchMovie(title: string): Promise<Movie[]> {
         },
     })
 
+    if (res.data.Response === 'False') {
+        return []
+    }
+
     return res.data.Search.map((movie: any) => ({
         title: movie.Title,
         year: movie.Year,
