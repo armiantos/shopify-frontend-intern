@@ -13,6 +13,7 @@ export async function searchMovie(title: string): Promise<Movie[]> {
         },
     });
 
+    // When there are no matching movies from OMDb with given title
     if (res.data.Response === 'False') {
         return [];
     }
