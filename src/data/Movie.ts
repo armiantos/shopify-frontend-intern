@@ -1,4 +1,4 @@
 export default interface Movie {
-    title: string
-    year: number
+    title: string;
+    year: number;
 }
