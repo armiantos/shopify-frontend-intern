@@ -1,16 +1,38 @@
-import React from 'react';
-import { searchMovie } from './api/OMDb';
+import React, { useState } from 'react';
+import { searchMovies } from './api/OMDb';
+import Movie from './data/Movie';
 import SearchBar from './SearchBar';
 
+type SearchResults = {
+    title: string;
+    movies: Movie[];
+};
+
 function App() {
+    const [searchResults, setSearchResults] = useState<SearchResults>();
+
     return (
         <div className="App">
             <header>The Shoppies</header>
             <SearchBar
                 onSearch={async (title) => {
-                    console.log(await searchMovie(title));
+                    setSearchResults({
+                        title,
+                        movies: await searchMovies(title),
+                    });
                 }}
             />
+
+            <div className="SearchResults">
+                <h1>Results for {searchResults?.title}</h1>
+                <ul>
+                    {searchResults?.movies.map((movie) => (
+                        <li key={movie.title}>
+                            {movie.title} ({movie.year})
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
