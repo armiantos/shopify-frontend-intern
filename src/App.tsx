@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { OMDbMovie } from './api/data/OMDbSearchResponse';
+import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 import SearchBar from './SearchBar';
 
 type SearchResults = {
     title: string;
-    movies: OMDbMovie[];
+    movies: Movie[];
 };
 
 function App() {

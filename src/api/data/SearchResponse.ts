@@ -1,10 +1,10 @@
-export type OMDbSearchResponse = {
-    Search: OMDbMovie[];
+export type SearchResponse = {
+    Search: Movie[];
     totalResults: string;
     Response: string;
 };
 
-export type OMDbMovie = {
+export type Movie = {
     Title: string;
     Year: string;
     imdbID: string;
