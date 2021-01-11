@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { OMDbMovie } from './api/data/OMDbSearchResponse';
 import { searchMovies } from './api/OMDb';
-import Movie from './data/Movie';
 import SearchBar from './SearchBar';
 
 type SearchResults = {
     title: string;
-    movies: Movie[];
+    movies: OMDbMovie[];
 };
 
 function App() {
@@ -13,7 +13,10 @@ function App() {
 
     return (
         <div className="App">
-            <header>The Shoppies</header>
+            <header>
+                <h1>The Shoppies</h1>
+            </header>
+
             <SearchBar
                 onSearch={async (title) => {
                     setSearchResults({
@@ -27,8 +30,8 @@ function App() {
                 <h1>Results for {searchResults?.title}</h1>
                 <ul>
                     {searchResults?.movies.map((movie) => (
-                        <li key={movie.title}>
-                            {movie.title} ({movie.year})
+                        <li key={movie.imdbID}>
+                            {movie.Title} ({movie.Year})
                         </li>
                     ))}
                 </ul>
