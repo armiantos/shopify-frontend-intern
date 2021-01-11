@@ -16,6 +16,14 @@ function App() {
         setNominations([...nominations, movie]);
     }
 
+    function removeFromNominations(movie: Movie) {
+        setNominations(
+            nominations.filter(
+                (nomination) => nomination.imdbID !== movie.imdbID
+            )
+        );
+    }
+
     return (
         <div className="App">
             <header>
@@ -52,7 +60,14 @@ function App() {
                 <ul>
                     {nominations.map((movie) => (
                         <li key={movie.imdbID}>
-                            {movie.Title} ({movie.Year})
+                            <div className="MovieTitle">
+                                {movie.Title} ({movie.Year})
+                            </div>
+                            <button
+                                onClick={() => removeFromNominations(movie)}
+                            >
+                                Remove
+                            </button>
                         </li>
                     ))}
                 </ul>
