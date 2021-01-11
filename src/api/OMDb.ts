@@ -1,11 +1,11 @@
 import axios from 'axios';
-import Movie from '../data/Movie';
+import { Movie, SearchResponse } from './data/SearchResponse';
 
 const apiKey = 'e287055f';
 const endpoint = `http://www.omdbapi.com`;
 
-export async function searchMovie(title: string): Promise<Movie[]> {
-    const res = await axios.get(endpoint, {
+export async function searchMovies(title: string): Promise<Movie[]> {
+    const res = await axios.get<SearchResponse>(endpoint, {
         params: {
             apiKey,
             type: 'movie',
@@ -13,12 +13,10 @@ export async function searchMovie(title: string): Promise<Movie[]> {
         },
     });
 
+    // When there are no matching movies from OMDb with given title
     if (res.data.Response === 'False') {
         return [];
     }
 
-    return res.data.Search.map((movie: any) => ({
-        title: movie.Title,
-        year: movie.Year,
-    }));
+    return res.data.Search;
 }

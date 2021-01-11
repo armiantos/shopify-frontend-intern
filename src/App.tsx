@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Movie } from './api/data/SearchResponse';
+import { searchMovies } from './api/OMDb';
+import SearchBar from './SearchBar';
+
+type SearchResults = {
+    title: string;
+    movies: Movie[];
+};
 
 function App() {
+    const [searchResults, setSearchResults] = useState<SearchResults>();
+
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+            <header>
+                <h1>The Shoppies</h1>
             </header>
+
+            <SearchBar
+                onSearch={async (title) => {
+                    setSearchResults({
+                        title,
+                        movies: await searchMovies(title),
+                    });
+                }}
+            />
+
+            <div className="SearchResults">
+                <h1>Results for {searchResults?.title}</h1>
+                <ul>
+                    {searchResults?.movies.map((movie) => (
+                        <li key={movie.imdbID}>
+                            {movie.Title} ({movie.Year})
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
