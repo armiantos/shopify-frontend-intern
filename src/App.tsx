@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 import SearchBar from './SearchBar';
@@ -10,6 +10,36 @@ type SearchResults = {
 
 function App() {
     const [searchResults, setSearchResults] = useState<SearchResults>();
+    const [nominations, setNominations] = useState<Movie[]>([]);
+
+    useEffect(() => {
+        if (nominations.length === 5) {
+            window.alert('Thank you! You have nominated 5 movies');
+        }
+    }, [nominations]);
+
+    function nominate(movie: Movie) {
+        if (nominations.length === 5) {
+            window.alert('You have already nominated 5 movies');
+            return;
+        }
+
+        setNominations([...nominations, movie]);
+    }
+
+    function removeFromNominations(movie: Movie) {
+        setNominations(
+            nominations.filter(
+                (nomination) => nomination.imdbID !== movie.imdbID
+            )
+        );
+    }
+
+    function isMovieNominated(movie: Movie) {
+        return nominations.some(
+            (nomination) => nomination.imdbID === movie.imdbID
+        );
+    }
 
     return (
         <div className="App">
@@ -31,7 +61,33 @@ function App() {
                 <ul>
                     {searchResults?.movies.map((movie) => (
                         <li key={movie.imdbID}>
-                            {movie.Title} ({movie.Year})
+                            <div className="MovieTitle">
+                                {movie.Title} ({movie.Year})
+                            </div>
+                            <button
+                                onClick={() => nominate(movie)}
+                                disabled={isMovieNominated(movie)}
+                            >
+                                Nominate
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="Nominations">
+                <h1>Nominations</h1>
+                <ul>
+                    {nominations.map((movie) => (
+                        <li key={movie.imdbID}>
+                            <div className="MovieTitle">
+                                {movie.Title} ({movie.Year})
+                            </div>
+                            <button
+                                onClick={() => removeFromNominations(movie)}
+                            >
+                                Remove
+                            </button>
                         </li>
                     ))}
                 </ul>
