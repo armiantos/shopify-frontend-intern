@@ -35,6 +35,12 @@ function App() {
         );
     }
 
+    function isMovieNominated(movie: Movie) {
+        return nominations.some(
+            (nomination) => nomination.imdbID === movie.imdbID
+        );
+    }
+
     return (
         <div className="App">
             <header>
@@ -58,7 +64,10 @@ function App() {
                             <div className="MovieTitle">
                                 {movie.Title} ({movie.Year})
                             </div>
-                            <button onClick={() => nominate(movie)}>
+                            <button
+                                onClick={() => nominate(movie)}
+                                disabled={isMovieNominated(movie)}
+                            >
                                 Nominate
                             </button>
                         </li>
