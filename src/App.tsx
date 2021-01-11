@@ -12,6 +12,10 @@ function App() {
     const [searchResults, setSearchResults] = useState<SearchResults>();
     const [nominations, setNominations] = useState<Movie[]>([]);
 
+    function nominate(movie: Movie) {
+        setNominations([...nominations, movie]);
+    }
+
     return (
         <div className="App">
             <header>
@@ -32,7 +36,12 @@ function App() {
                 <ul>
                     {searchResults?.movies.map((movie) => (
                         <li key={movie.imdbID}>
-                            {movie.Title} ({movie.Year})
+                            <div className="MovieTitle">
+                                {movie.Title} ({movie.Year})
+                            </div>
+                            <button onClick={() => nominate(movie)}>
+                                Nominate
+                            </button>
                         </li>
                     ))}
                 </ul>
