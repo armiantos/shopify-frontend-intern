@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from './components/SearchBar';
 
@@ -76,15 +78,18 @@ function App() {
                     <ul>
                         {searchResults?.movies.map((movie) => (
                             <li key={movie.imdbID}>
-                                <div className="MovieTitle">
-                                    {movie.Title} ({movie.Year})
-                                </div>
-                                <button
-                                    onClick={() => nominate(movie)}
-                                    disabled={isMovieNominated(movie)}
-                                >
-                                    Nominate
-                                </button>
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="body1">
+                                        {movie.Title} ({movie.Year})
+                                    </Typography>
+                                    <Button
+                                        onClick={() => nominate(movie)}
+                                        disabled={isMovieNominated(movie)}
+                                        variant="contained"
+                                    >
+                                        Nominate
+                                    </Button>
+                                </Box>
                             </li>
                         ))}
                     </ul>
@@ -95,14 +100,19 @@ function App() {
                     <ul>
                         {nominations.map((movie) => (
                             <li key={movie.imdbID}>
-                                <div className="MovieTitle">
-                                    {movie.Title} ({movie.Year})
-                                </div>
-                                <button
-                                    onClick={() => removeFromNominations(movie)}
-                                >
-                                    Remove
-                                </button>
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="body1">
+                                        {movie.Title} ({movie.Year})
+                                    </Typography>
+                                    <Button
+                                        onClick={() =>
+                                            removeFromNominations(movie)
+                                        }
+                                        variant="contained"
+                                    >
+                                        Remove
+                                    </Button>
+                                </Box>
                             </li>
                         ))}
                     </ul>
