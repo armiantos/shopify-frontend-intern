@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 import SearchBar from './components/SearchBar';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 type SearchResults = {
     title: string;
@@ -46,55 +50,59 @@ function App() {
         <div className="App">
             <CssBaseline />
 
-            <header>
-                <h1>The Shoppies</h1>
-            </header>
+            <ThemeProvider theme={theme}>
+                <header>
+                    <Typography variant="h1">The Shoppies</Typography>
+                </header>
 
-            <SearchBar
-                onSearch={async (title) => {
-                    setSearchResults({
-                        title,
-                        movies: await searchMovies(title),
-                    });
-                }}
-            />
+                <SearchBar
+                    onSearch={async (title) => {
+                        setSearchResults({
+                            title,
+                            movies: await searchMovies(title),
+                        });
+                    }}
+                />
 
-            <div className="SearchResults">
-                <h1>Results for {searchResults?.title}</h1>
-                <ul>
-                    {searchResults?.movies.map((movie) => (
-                        <li key={movie.imdbID}>
-                            <div className="MovieTitle">
-                                {movie.Title} ({movie.Year})
-                            </div>
-                            <button
-                                onClick={() => nominate(movie)}
-                                disabled={isMovieNominated(movie)}
-                            >
-                                Nominate
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                <div className="SearchResults">
+                    <Typography variant="h2">
+                        Results for {searchResults?.title}
+                    </Typography>
+                    <ul>
+                        {searchResults?.movies.map((movie) => (
+                            <li key={movie.imdbID}>
+                                <div className="MovieTitle">
+                                    {movie.Title} ({movie.Year})
+                                </div>
+                                <button
+                                    onClick={() => nominate(movie)}
+                                    disabled={isMovieNominated(movie)}
+                                >
+                                    Nominate
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <div className="Nominations">
-                <h1>Nominations</h1>
-                <ul>
-                    {nominations.map((movie) => (
-                        <li key={movie.imdbID}>
-                            <div className="MovieTitle">
-                                {movie.Title} ({movie.Year})
-                            </div>
-                            <button
-                                onClick={() => removeFromNominations(movie)}
-                            >
-                                Remove
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                <div className="Nominations">
+                    <Typography variant="h2">Nominations</Typography>
+                    <ul>
+                        {nominations.map((movie) => (
+                            <li key={movie.imdbID}>
+                                <div className="MovieTitle">
+                                    {movie.Title} ({movie.Year})
+                                </div>
+                                <button
+                                    onClick={() => removeFromNominations(movie)}
+                                >
+                                    Remove
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </ThemeProvider>
         </div>
     );
 }
