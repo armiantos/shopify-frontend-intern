@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from './components/SearchBar';
 import ClickableMovie from './components/ClickableMovie';
+import Banner from './components/Banner';
 
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,17 +37,22 @@ function App() {
     const [searchResults, setSearchResults] = useState<SearchResults>();
     const [nominations, setNominations] = useState<Movie[]>([]);
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
+
     const classes = useStyles();
 
     useEffect(() => {
         if (nominations.length === 5) {
-            window.alert('Thank you! You have nominated 5 movies');
+            setMessage('Thank you! You have nominated 5 movies.');
+            setOpen(true);
         }
     }, [nominations]);
 
     function nominate(movie: Movie) {
         if (nominations.length === 5) {
-            window.alert('You have already nominated 5 movies');
+            setMessage('You have already nominated 5 movies');
+            setOpen(true);
             return;
         }
 
@@ -73,6 +79,8 @@ function App() {
                 <CssBaseline />
 
                 <ThemeProvider theme={theme}>
+                    <Banner open={open} setOpen={setOpen} content={message} />
+
                     <header>
                         <Typography variant="h1">The Shoppies</Typography>
                     </header>
