@@ -27,7 +27,7 @@ export default function SearchBar({ onSearch }: SearchProps) {
 
     return (
         <Paper variant="outlined" className={classes.root}>
-            <SearchIcon />
+            <SearchIcon color="action" />
             <InputBase
                 className={classes.input}
                 inputProps={{ 'aria-label': 'Search' }}
