@@ -36,13 +36,6 @@ jobs:
             - name: Build
               run: npm run build
 
-    deploy:
-        needs: build
-
-        # Deploy only main (stable) branch
-        if: github.ref == 'refs/heads/main'
-
-        steps:
             # https://github.com/marketplace/actions/deploy-to-github-pages
             - name: Deploy to Github Pages
               uses: JamesIves/github-pages-deploy-action@3.7.1
