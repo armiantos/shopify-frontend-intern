@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Movie, SearchResponse } from './data/SearchResponse';
 
 const apiKey = 'e287055f';
-const endpoint = `http://www.omdbapi.com`;
+const endpoint = `https://www.omdbapi.com`;
 
 export async function searchMovies(title: string): Promise<Movie[]> {
     const res = await axios.get<SearchResponse>(endpoint, {
