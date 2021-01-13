@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
     },
+    title: {
+        marginTop: theme.spacing(5),
+    },
     paper: {
         padding: theme.spacing(3),
         margin: theme.spacing(1),
@@ -82,7 +85,9 @@ function App() {
                     <Banner open={open} setOpen={setOpen} content={message} />
 
                     <header>
-                        <Typography variant="h1">The Shoppies</Typography>
+                        <Typography variant="h1" className={classes.title}>
+                            The Shoppies
+                        </Typography>
                     </header>
 
                     <Paper className={`Search ${classes.paper}`}>
