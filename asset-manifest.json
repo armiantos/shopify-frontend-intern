@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/shopify-frontend-intern/static/css/main.a9ae231c.chunk.css",
+    "main.js": "/shopify-frontend-intern/static/js/main.dd09e57c.chunk.js",
+    "main.js.map": "/shopify-frontend-intern/static/js/main.dd09e57c.chunk.js.map",
+    "runtime-main.js": "/shopify-frontend-intern/static/js/runtime-main.f295ba19.js",
+    "runtime-main.js.map": "/shopify-frontend-intern/static/js/runtime-main.f295ba19.js.map",
+    "static/js/2.07070fac.chunk.js": "/shopify-frontend-intern/static/js/2.07070fac.chunk.js",
+    "static/js/2.07070fac.chunk.js.map": "/shopify-frontend-intern/static/js/2.07070fac.chunk.js.map",
+    "static/js/3.680c7f06.chunk.js": "/shopify-frontend-intern/static/js/3.680c7f06.chunk.js",
+    "static/js/3.680c7f06.chunk.js.map": "/shopify-frontend-intern/static/js/3.680c7f06.chunk.js.map",
+    "index.html": "/shopify-frontend-intern/index.html",
+    "static/css/main.a9ae231c.chunk.css.map": "/shopify-frontend-intern/static/css/main.a9ae231c.chunk.css.map",
+    "static/js/2.07070fac.chunk.js.LICENSE.txt": "/shopify-frontend-intern/static/js/2.07070fac.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f295ba19.js",
+    "static/js/2.07070fac.chunk.js",
+    "static/css/main.a9ae231c.chunk.css",
+    "static/js/main.dd09e57c.chunk.js"
+  ]
+}
