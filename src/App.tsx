@@ -55,14 +55,17 @@ function App() {
                     <Typography variant="h1">The Shoppies</Typography>
                 </header>
 
-                <SearchBar
-                    onSearch={async (title) => {
-                        setSearchResults({
-                            title,
-                            movies: await searchMovies(title),
-                        });
-                    }}
-                />
+                <div className="Search">
+                    <Typography variant="h3">Movie title</Typography>
+                    <SearchBar
+                        onSearch={async (title) => {
+                            setSearchResults({
+                                title,
+                                movies: await searchMovies(title),
+                            });
+                        }}
+                    />
+                </div>
 
                 <div className="SearchResults">
                     <Typography variant="h2">
