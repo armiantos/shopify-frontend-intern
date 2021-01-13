@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import SearchBar from './components/SearchBar';
 
@@ -11,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
+import ClickableMovie from './components/ClickableMovie';
 
 type SearchResults = {
     title: string;
@@ -78,18 +77,11 @@ function App() {
                     <ul>
                         {searchResults?.movies.map((movie) => (
                             <li key={movie.imdbID}>
-                                <Box display="flex" alignItems="center">
-                                    <Typography variant="body1">
-                                        {movie.Title} ({movie.Year})
-                                    </Typography>
-                                    <Button
-                                        onClick={() => nominate(movie)}
-                                        disabled={isMovieNominated(movie)}
-                                        variant="contained"
-                                    >
-                                        Nominate
-                                    </Button>
-                                </Box>
+                                <ClickableMovie
+                                    movie={movie}
+                                    onClick={nominate}
+                                    isClickDisabled={isMovieNominated(movie)}
+                                />
                             </li>
                         ))}
                     </ul>
@@ -100,19 +92,10 @@ function App() {
                     <ul>
                         {nominations.map((movie) => (
                             <li key={movie.imdbID}>
-                                <Box display="flex" alignItems="center">
-                                    <Typography variant="body1">
-                                        {movie.Title} ({movie.Year})
-                                    </Typography>
-                                    <Button
-                                        onClick={() =>
-                                            removeFromNominations(movie)
-                                        }
-                                        variant="contained"
-                                    >
-                                        Remove
-                                    </Button>
-                                </Box>
+                                <ClickableMovie
+                                    movie={movie}
+                                    onClick={removeFromNominations}
+                                />
                             </li>
                         ))}
                     </ul>
