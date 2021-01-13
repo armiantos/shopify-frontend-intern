@@ -1,26 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
-import SearchBar from './SearchBar';
+
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import SearchBar from './components/SearchBar';
+import ClickableMovie from './components/ClickableMovie';
+import Banner from './components/Banner';
+
+import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 type SearchResults = {
     title: string;
     movies: Movie[];
 };
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+    },
+    title: {
+        marginTop: theme.spacing(5),
+    },
+    paper: {
+        padding: theme.spacing(3),
+        margin: theme.spacing(1),
+    },
+    item: {
+        marginBottom: theme.spacing(1),
+    },
+}));
+
 function App() {
     const [searchResults, setSearchResults] = useState<SearchResults>();
     const [nominations, setNominations] = useState<Movie[]>([]);
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const classes = useStyles();
+
     useEffect(() => {
         if (nominations.length === 5) {
-            window.alert('Thank you! You have nominated 5 movies');
+            setMessage('Thank you! You have nominated 5 movies.');
+            setOpen(true);
         }
     }, [nominations]);
 
     function nominate(movie: Movie) {
         if (nominations.length === 5) {
-            window.alert('You have already nominated 5 movies');
+            setMessage('You have already nominated 5 movies');
+            setOpen(true);
             return;
         }
 
@@ -42,57 +78,84 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <header>
-                <h1>The Shoppies</h1>
-            </header>
+        <Box className={classes.root} display="flex" justifyContent="center">
+            <div className="App">
+                <CssBaseline />
 
-            <SearchBar
-                onSearch={async (title) => {
-                    setSearchResults({
-                        title,
-                        movies: await searchMovies(title),
-                    });
-                }}
-            />
+                <ThemeProvider theme={theme}>
+                    <Banner open={open} setOpen={setOpen} content={message} />
 
-            <div className="SearchResults">
-                <h1>Results for {searchResults?.title}</h1>
-                <ul>
-                    {searchResults?.movies.map((movie) => (
-                        <li key={movie.imdbID}>
-                            <div className="MovieTitle">
-                                {movie.Title} ({movie.Year})
-                            </div>
-                            <button
-                                onClick={() => nominate(movie)}
-                                disabled={isMovieNominated(movie)}
-                            >
-                                Nominate
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                    <header>
+                        <Typography variant="h1" className={classes.title}>
+                            The Shoppies
+                        </Typography>
+                    </header>
+
+                    <Paper className={`Search ${classes.paper}`}>
+                        <Typography variant="h3" gutterBottom>
+                            Movie title
+                        </Typography>
+                        <SearchBar
+                            onSearch={async (title) => {
+                                setSearchResults({
+                                    title,
+                                    movies: await searchMovies(title),
+                                });
+                            }}
+                        />
+                    </Paper>
+
+                    <Grid container>
+                        <Grid item sm={12} md={6}>
+                            <Paper className={`SearchResults ${classes.paper}`}>
+                                <Typography variant="h2" gutterBottom>
+                                    Results for {searchResults?.title}
+                                </Typography>
+                                <ul>
+                                    {searchResults?.movies.map((movie) => (
+                                        <li
+                                            key={movie.imdbID}
+                                            className={classes.item}
+                                        >
+                                            <ClickableMovie
+                                                movie={movie}
+                                                buttonText="Nominate"
+                                                onClick={nominate}
+                                                isClickDisabled={isMovieNominated(
+                                                    movie
+                                                )}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Paper>
+                        </Grid>
+
+                        <Grid item sm={12} md={6}>
+                            <Paper className={`Nominations ${classes.paper}`}>
+                                <Typography variant="h2" gutterBottom>
+                                    Nominations
+                                </Typography>
+                                <ul>
+                                    {nominations.map((movie) => (
+                                        <li
+                                            key={movie.imdbID}
+                                            className={classes.item}
+                                        >
+                                            <ClickableMovie
+                                                movie={movie}
+                                                buttonText="Remove"
+                                                onClick={removeFromNominations}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </ThemeProvider>
             </div>
-
-            <div className="Nominations">
-                <h1>Nominations</h1>
-                <ul>
-                    {nominations.map((movie) => (
-                        <li key={movie.imdbID}>
-                            <div className="MovieTitle">
-                                {movie.Title} ({movie.Year})
-                            </div>
-                            <button
-                                onClick={() => removeFromNominations(movie)}
-                            >
-                                Remove
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+        </Box>
     );
 }
 
