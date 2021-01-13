@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch }: SearchProps) {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.root}>
+        <Paper variant="outlined" className={classes.root}>
             <SearchIcon />
             <InputBase
                 className={classes.input}
