@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
 import SearchBar from './SearchBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 type SearchResults = {
     title: string;
@@ -43,6 +44,8 @@ function App() {
 
     return (
         <div className="App">
+            <CssBaseline />
+
             <header>
                 <h1>The Shoppies</h1>
             </header>
