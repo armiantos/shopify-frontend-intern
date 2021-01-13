@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
+
+import Paper from '@material-ui/core/Paper';
 import SearchBar from './components/SearchBar';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,7 +57,7 @@ function App() {
                     <Typography variant="h1">The Shoppies</Typography>
                 </header>
 
-                <div className="Search">
+                <Paper className="Search">
                     <Typography variant="h3">Movie title</Typography>
                     <SearchBar
                         onSearch={async (title) => {
@@ -65,9 +67,9 @@ function App() {
                             });
                         }}
                     />
-                </div>
+                </Paper>
 
-                <div className="SearchResults">
+                <Paper className="SearchResults">
                     <Typography variant="h2">
                         Results for {searchResults?.title}
                     </Typography>
@@ -86,9 +88,9 @@ function App() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </Paper>
 
-                <div className="Nominations">
+                <Paper className="Nominations">
                     <Typography variant="h2">Nominations</Typography>
                     <ul>
                         {nominations.map((movie) => (
@@ -104,7 +106,7 @@ function App() {
                             </li>
                         ))}
                     </ul>
-                </div>
+                </Paper>
             </ThemeProvider>
         </div>
     );
