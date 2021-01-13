@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
-import SearchBar from './SearchBar';
+import SearchBar from './components/SearchBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 type SearchResults = {
