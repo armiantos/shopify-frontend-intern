@@ -4,12 +4,12 @@ import { searchMovies } from './api/OMDb';
 
 import Paper from '@material-ui/core/Paper';
 import SearchBar from './components/SearchBar';
+import ClickableMovie from './components/ClickableMovie';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
-import ClickableMovie from './components/ClickableMovie';
 
 type SearchResults = {
     title: string;
