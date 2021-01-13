@@ -4,6 +4,7 @@ import { searchMovies } from './api/OMDb';
 
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import SearchBar from './components/SearchBar';
 import ClickableMovie from './components/ClickableMovie';
 import Banner from './components/Banner';
@@ -102,40 +103,53 @@ function App() {
                         />
                     </Paper>
 
-                    <Paper className={`SearchResults ${classes.paper}`}>
-                        <Typography variant="h2">
-                            Results for {searchResults?.title}
-                        </Typography>
-                        <ul>
-                            {searchResults?.movies.map((movie) => (
-                                <li key={movie.imdbID} className={classes.item}>
-                                    <ClickableMovie
-                                        movie={movie}
-                                        buttonText="Nominate"
-                                        onClick={nominate}
-                                        isClickDisabled={isMovieNominated(
-                                            movie
-                                        )}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    </Paper>
-
-                    <Paper className={`Nominations ${classes.paper}`}>
-                        <Typography variant="h2">Nominations</Typography>
-                        <ul>
-                            {nominations.map((movie) => (
-                                <li key={movie.imdbID} className={classes.item}>
-                                    <ClickableMovie
-                                        movie={movie}
-                                        buttonText="Remove"
-                                        onClick={removeFromNominations}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    </Paper>
+                    <Grid container>
+                        <Grid item sm={12} md={6}>
+                            <Paper className={`SearchResults ${classes.paper}`}>
+                                <Typography variant="h2">
+                                    Results for {searchResults?.title}
+                                </Typography>
+                                <ul>
+                                    {searchResults?.movies.map((movie) => (
+                                        <li
+                                            key={movie.imdbID}
+                                            className={classes.item}
+                                        >
+                                            <ClickableMovie
+                                                movie={movie}
+                                                buttonText="Nominate"
+                                                onClick={nominate}
+                                                isClickDisabled={isMovieNominated(
+                                                    movie
+                                                )}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Paper>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <Paper className={`Nominations ${classes.paper}`}>
+                                <Typography variant="h2">
+                                    Nominations
+                                </Typography>
+                                <ul>
+                                    {nominations.map((movie) => (
+                                        <li
+                                            key={movie.imdbID}
+                                            className={classes.item}
+                                        >
+                                            <ClickableMovie
+                                                movie={movie}
+                                                buttonText="Remove"
+                                                onClick={removeFromNominations}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 </ThemeProvider>
             </div>
         </Box>
