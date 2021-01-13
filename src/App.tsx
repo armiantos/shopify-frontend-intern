@@ -92,7 +92,9 @@ function App() {
                     </header>
 
                     <Paper className={`Search ${classes.paper}`}>
-                        <Typography variant="h3">Movie title</Typography>
+                        <Typography variant="h3" gutterBottom>
+                            Movie title
+                        </Typography>
                         <SearchBar
                             onSearch={async (title) => {
                                 setSearchResults({
@@ -106,7 +108,7 @@ function App() {
                     <Grid container>
                         <Grid item sm={12} md={6}>
                             <Paper className={`SearchResults ${classes.paper}`}>
-                                <Typography variant="h2">
+                                <Typography variant="h2" gutterBottom>
                                     Results for {searchResults?.title}
                                 </Typography>
                                 <ul>
@@ -128,9 +130,10 @@ function App() {
                                 </ul>
                             </Paper>
                         </Grid>
+
                         <Grid item sm={12} md={6}>
                             <Paper className={`Nominations ${classes.paper}`}>
-                                <Typography variant="h2">
+                                <Typography variant="h2" gutterBottom>
                                     Nominations
                                 </Typography>
                                 <ul>
