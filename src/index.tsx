@@ -15,7 +15,7 @@ const persistConfig = {
     storage,
 };
 const persistedReducer = persistReducer(persistConfig, reducer);
-const store = createStore(persistedReducer as any);
+const store = createStore(persistedReducer as any); // Workaround, TODO: find better solution
 const persistor = persistStore(store);
 
 ReactDOM.render(
