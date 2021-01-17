@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from './api/data/SearchResponse';
 import { searchMovies } from './api/OMDb';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { nominate, remove } from './redux/actions';
 
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +18,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
+import { NominateRemoveAction, State } from './redux/reducer';
 
 type SearchResults = {
     title: string;
@@ -37,9 +41,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function App() {
+function mapStateToProps(state: State) {
+    return {
+        nominations: state.nominations,
+    };
+}
+
+function mapDispatchToProps(dispatch: any) {
+    return bindActionCreators({ nominate, remove }, dispatch);
+}
+
+type AppProps = {
+    nominations: Movie[];
+};
+
+type DispatchProps = {
+    nominate: (movie: Movie) => NominateRemoveAction;
+    remove: (movie: Movie) => NominateRemoveAction;
+};
+
+type Props = AppProps & DispatchProps;
+
+function App({ nominations, nominate, remove }: Props) {
     const [searchResults, setSearchResults] = useState<SearchResults>();
-    const [nominations, setNominations] = useState<Movie[]>([]);
 
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
@@ -52,24 +76,6 @@ function App() {
             setOpen(true);
         }
     }, [nominations]);
-
-    function nominate(movie: Movie) {
-        if (nominations.length === 5) {
-            setMessage('You have already nominated 5 movies');
-            setOpen(true);
-            return;
-        }
-
-        setNominations([...nominations, movie]);
-    }
-
-    function removeFromNominations(movie: Movie) {
-        setNominations(
-            nominations.filter(
-                (nomination) => nomination.imdbID !== movie.imdbID
-            )
-        );
-    }
 
     function isMovieNominated(movie: Movie) {
         return nominations.some(
@@ -145,7 +151,7 @@ function App() {
                                             <ClickableMovie
                                                 movie={movie}
                                                 buttonText="Remove"
-                                                onClick={removeFromNominations}
+                                                onClick={remove}
                                             />
                                         </li>
                                     ))}
@@ -159,4 +165,4 @@ function App() {
     );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
