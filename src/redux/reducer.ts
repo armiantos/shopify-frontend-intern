@@ -21,7 +21,7 @@ const initialState: State = {
 export default function reducer(
     state = initialState,
     action: NominateRemoveAction
-) {
+): State {
     switch (action.type) {
         case NominateActionType.NOMINATE:
             // Don't add more nominations after 5
