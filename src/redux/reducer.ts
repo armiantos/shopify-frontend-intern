@@ -24,10 +24,18 @@ export default function reducer(
 ) {
     switch (action.type) {
         case NominateActionType.NOMINATE:
-            break;
+            return {
+                ...state,
+                nominations: [...state.nominations, action.movie],
+            };
         case NominateActionType.REMOVE:
-            break;
+            return {
+                ...state,
+                nominations: state.nominations.filter(
+                    (nominee) => nominee.imdbID !== action.movie.imdbID
+                ),
+            };
         default:
-            break;
+            return state;
     }
 }
