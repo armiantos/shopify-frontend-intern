@@ -24,6 +24,11 @@ export default function reducer(
 ) {
     switch (action.type) {
         case NominateActionType.NOMINATE:
+            // Don't add more nominations after 5
+            if (state.nominations.length === 5) {
+                return state;
+            }
+
             return {
                 ...state,
                 nominations: [...state.nominations, action.movie],
