@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/shopify-frontend-summer-intern/static/css/main.e2c10caa.chunk.css",
-    "main.js": "/shopify-frontend-summer-intern/static/js/main.37d09589.chunk.js",
-    "main.js.map": "/shopify-frontend-summer-intern/static/js/main.37d09589.chunk.js.map",
+    "main.js": "/shopify-frontend-summer-intern/static/js/main.b2d4f9ff.chunk.js",
+    "main.js.map": "/shopify-frontend-summer-intern/static/js/main.b2d4f9ff.chunk.js.map",
     "runtime-main.js": "/shopify-frontend-summer-intern/static/js/runtime-main.1fcd17ec.js",
     "runtime-main.js.map": "/shopify-frontend-summer-intern/static/js/runtime-main.1fcd17ec.js.map",
     "static/js/2.8d69545f.chunk.js": "/shopify-frontend-summer-intern/static/js/2.8d69545f.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.1fcd17ec.js",
     "static/js/2.8d69545f.chunk.js",
     "static/css/main.e2c10caa.chunk.css",
-    "static/js/main.37d09589.chunk.js"
+    "static/js/main.b2d4f9ff.chunk.js"
   ]
 }
